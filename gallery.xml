@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="gallery.xsl"?>
+<gallery>
+	<image id="1">
+		<title>Image 1</title>
+		<date>2016-01-10</date>
+		<text>asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</text>
+		<path>images/1.png</path>
+	</image>
+	<image id="2">
+		<title>Image 2</title>
+		<date>2016-01-11</date>
+		<text>asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</text>
+		<path>images/2.png</path>
+	</image>
+	<image id="3">
+		<title>Image 3</title>
+		<date>2016-01-12</date>
+		<text>asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</text>
+		<path>images/3.png</path>
+	</image>
+	<image id="4">
+		<title>Image 4</title>
+		<date>2016-01-13</date>
+		<text>asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</text>
+		<path>images/4.png</path>
+	</image>
+</gallery>
