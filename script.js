@@ -1,72 +1,85 @@
-var xmlDoc, image, currentID = 0;
+var xmlDoc, image, Id = 0;
 var xmlhttp = new XMLHttpRequest();
 
 xmlhttp.onreadystatechange = function() {
   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-
-   // eventlistener calling previmg
+    // The event listener for prevImage 
     document.getElementById("prevBTN").addEventListener("click", function(){
       event.preventDefault();
-      prevImg();
+      prevImage();
     }, false);
-
-    // eventlistener calling nextimg
+    
+    // The event listener for nextImage 
     document.getElementById("nextBTN").addEventListener("click", function(){
       event.preventDefault();
-      nextImg();
+      nextImage();
     }, false);
 
     document.addEventListener("keydown", function(){
       key = event.keyCode;
       if(key === 37){
-        prevImg();
+        prevImage();
       }
       if(key === 39){
-        nextImg();
+        nextImage();
       }
     })
 
     xmlDoc();
-    displayCurrentID()
+    currentImageID()
+    deleteBTN()
+    
   }
 };
 xmlhttp.open("GET", "gallery.xml", true);
 xmlhttp.send();
 
-function xmlDoc(){
-  xmlDoc = xmlhttp.responseXML;
-  image = xmlDoc.getElementsByTagName("image");
-  myFunction();
-}
-
-function myFunction() {
-  var i, title, date, text, path, imageResult = "";
+// Displays all the images in the XML file.
+function allImages() {
+  var i, title, date, text, path, imageResult = "", deleteInput = "";
   for (i = 0; i < image.length; i++) {
     title = image[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
     date = image[i].getElementsByTagName("date")[0].childNodes[0].nodeValue;
     text = image[i].getElementsByTagName("text")[0].childNodes[0].nodeValue;
     path = image[i].getElementsByTagName("path")[0].childNodes[0].nodeValue;
-      imageResult += "<p>" + title + ", " + date + "</p><img src=' " + path +"' width='200px' ><p>" + text +"</p>";
+      imageResult += "<div class='row margin-top allImages'><div class='text-align'><div class='col-xs-12 '><p>" + title + "<br> " + date + "</p> <img src=' " + path +"' width='200px' /> <p>" + text +"</p></div></div></div>";
       document.getElementById("demo").innerHTML = imageResult;
   }
 }
 
-function displayCurrentID() {
-  document.getElementById('slideshowimg').src = image[currentID].getElementsByTagName("path")[0].childNodes[0].nodeValue;
+function xmlDoc(){
+  xmlDoc = xmlhttp.responseXML;
+  image = xmlDoc.getElementsByTagName("image");
+  allImages();
 }
 
-function nextImg() { 
-  if(++currentID >= image.length){
-    currentID = 0;
-  }
-  displayCurrentID();
+// Shows the text, date, image and text for the specific image
+function currentImageID() {
+  document.getElementById('imageTitle').innerHTML = image[Id].getElementsByTagName("title")[0].childNodes[0].nodeValue;
+  document.getElementById('imageDate').innerHTML = image[Id].getElementsByTagName("date")[0].childNodes[0].nodeValue; 
+  document.getElementById('slideshowimg').src = image[Id].getElementsByTagName("path")[0].childNodes[0].nodeValue; 
+  document.getElementById('imageText').innerHTML = image[Id].getElementsByTagName("text")[0].childNodes[0].nodeValue; 
 }
 
+// Adds hidden input and a delete button
+function deleteBTN(){
+  document.getElementById('deleteForm').innerHTML = "<input type='hidden' name='path' value='" + image[Id].children[3].innerHTML + "'></input><button id='delete' class='glyphicon glyphicon-trash buttonStyle formButten' type='submit' name='deleteImage' value='" + image[Id].getAttribute('id')+ "'></button> ";
+  document.getElementById('delete'),addEventListener('click', xmlDoc());
+}
 
-function prevImg() {
-  if ( --currentID < 0) {
-    currentID = image.length-1;
+// Go to the next image
+function nextImage() { 
+  if(++Id >= image.length){
+    Id = 0;
   }
-  displayCurrentID();
+  currentImageID();
+}
+
+// Go to the previous image
+function prevImage() {
+  if ( --Id < 0) {
+    Id = image.length-1;
+  }
+  currentImageID();
 }

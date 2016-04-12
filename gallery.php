@@ -1,4 +1,20 @@
 <?php
+function deleteImg() {
+	$xml = simplexml_load_file("gallery.xml");
+	$sxe = new SimpleXMLElement ($xml->asXML());
+	
+	$delete = $_POST["deleteImage"];
+	
+	$path = $_POST["path"];
+	
+	unset($sxe->xpath("image[@id='".$delete."']")[0]->{0});
+	$sxe->asXML("gallery.xml");
+	
+	if (file_exists($path)) {
+		unlink($path);
+	}
+}
+
 function addImage(){	
 	$originalFileName = basename($_FILES["fileToUpload"]['name']);
 	$fileExtension = pathinfo($originalFileName, PATHINFO_EXTENSION);
@@ -12,7 +28,6 @@ function addImage(){
 	if(isset($_POST["submit"])) {
 	    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 	    if($check !== false) {
-	        echo "File is an image - " . $check["mime"] . ".";
 	        $uploadOk = 1;
 	    } else {
 	        echo "File is not an image.";
@@ -36,17 +51,31 @@ function addImage(){
 	// if everything is ok, try to upload file
 	} else {
 	    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-	        echo "The file ". $target_file . " has been uploaded.";
-
-	        $path = $target_file;
-
+	        
+	        // Generates a new id for the new Node.
 			$xml = simplexml_load_file("gallery.xml");
+			$images = new SimpleXMLElement($xml->asXML());
+			$item = $images->count();
+			if ($item != 0) {
+				$xmlIds = array();
+				foreach ($images as $image) {
+					$nodeId = (int)$image->attributes();
+					$xmlIds[] = $nodeId;
+				}
+				$arrayId = $item - 1;
+				$lastXMLIdUsed = $xmlIds[$arrayId];
+				$newId = $lastXMLIdUsed + 1;
+			}else{
+				$newId = 0;
+			}
+
+			// Add text, image etc to the XML file
 		    $image = $xml->addChild("image");
-		    $image->addAttribute("id", "5");
+		    $image->addAttribute("id", $newId);
 		    $image->addChild("title", $_POST["fileName"]);
 		    $image->addChild("date", $_POST["fileDate"]);
 		    $image->addChild("text", $_POST["fileText"]);
-		    $image->addChild("path", $path);
+		    $image->addChild("path", $target_file);
 
 		    $xml->asXML("gallery.xml");
 	        
@@ -55,6 +84,6 @@ function addImage(){
 	        echo "Sorry, there was an error uploading your file.";
 	    }
 	}
-
-
 }
+
+

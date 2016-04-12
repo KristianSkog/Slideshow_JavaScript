@@ -2,27 +2,21 @@
 <?xml-stylesheet type="text/xsl" href="gallery.xsl"?>
 <gallery>
 	<image id="1">
-		<title>Image 1</title>
-		<date>2016-01-10</date>
-		<text>asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</text>
-		<path>images/1.png</path>
-	</image>
-	<image id="2">
 		<title>Image 2</title>
 		<date>2016-01-11</date>
-		<text>asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</text>
-		<path>images/2.png</path>
+		<text>Image 2 Image 2 Image 2 Image 2 Image 2 Image 2 Image 2 Image 2 </text>
+		<path>uploads/2.png</path>
 	</image>
-	<image id="3">
+	<image id="2">
 		<title>Image 3</title>
 		<date>2016-01-12</date>
-		<text>asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</text>
-		<path>images/3.png</path>
+		<text>Image 3 Image 3 Image 3 Image 3 Image 3 Image 3 Image 3 Image 3 </text>
+		<path>uploads/3.png</path>
 	</image>
-	<image id="4">
+	<image id="3">
 		<title>Image 4</title>
 		<date>2016-01-13</date>
-		<text>asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</text>
-		<path>images/4.png</path>
+		<text>Image 4 Image 4 Image 4 Image 4 Image 4 Image 4 Image 4 Image 4 </text>
+		<path>uploads/4.png</path>
 	</image>
 </gallery>
