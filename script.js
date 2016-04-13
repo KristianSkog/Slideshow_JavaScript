@@ -27,8 +27,9 @@ xmlhttp.onreadystatechange = function() {
     })
 
     xmlDoc();
-    currentImageID()
-    deleteBTN()
+    allImages();
+    currentImageID();
+    deleteBTN();
     
   }
 };
@@ -51,7 +52,7 @@ function allImages() {
 function xmlDoc(){
   xmlDoc = xmlhttp.responseXML;
   image = xmlDoc.getElementsByTagName("image");
-  allImages();
+  
 }
 
 // Shows the text, date, image and text for the specific image
@@ -64,7 +65,11 @@ function currentImageID() {
 
 // Adds hidden input and a delete button
 function deleteBTN(){
-  document.getElementById('deleteForm').innerHTML = "<input type='hidden' name='path' value='" + image[Id].children[3].innerHTML + "'></input><button id='delete' class='glyphicon glyphicon-trash buttonStyle formButten' type='submit' name='deleteImage' value='" + image[Id].getAttribute('id')+ "'></button> ";
+  document.getElementById('deleteForm').innerHTML = "<input type='hidden' name='path' value='" + 
+                                                      image[Id].children[3].innerHTML + 
+                                                      "'></input><button id='delete' class='glyphicon glyphicon-trash buttonStyle formButten' type='submit' name='deleteImage' value='" 
+                                                      + image[Id].getAttribute('id')+ 
+                                                      "'></button> ";
   document.getElementById('delete'),addEventListener('click', xmlDoc());
 }
 
@@ -73,6 +78,7 @@ function nextImage() {
   if(++Id >= image.length){
     Id = 0;
   }
+  console.log(Id);
   currentImageID();
 }
 
@@ -81,5 +87,6 @@ function prevImage() {
   if ( --Id < 0) {
     Id = image.length-1;
   }
+  console.log(Id);
   currentImageID();
 }

@@ -15,6 +15,7 @@
 			}
 			if (isset($_POST["deleteImage"])) {
 				deleteImg();
+				header("location: index.php");
 			}
 		?>
 </head>
